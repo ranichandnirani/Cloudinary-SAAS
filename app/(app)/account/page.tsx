@@ -39,17 +39,33 @@ export default function AccountPage() {
 
     setIsSaving(true);
     try {
-      await user.update({
-        firstName: firstName || null,
-        lastName: lastName || null,
-        username: username || null,
+      const response = await fetch("/api/account", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, username }),
       });
+
+      const result = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        throw new Error(result.error || "Could not update your account.");
+      }
+
       setIsEditing(false);
-      setSuccess("Account details updated.");
+      try {
+        await user.reload();
+        setSuccess("Account details updated.");
+      } catch (refreshError) {
+        console.error("Account was updated but could not be refreshed", refreshError);
+        setSuccess(
+          "Account details saved. Refresh the page to see your updated profile.",
+        );
+      }
     } catch (updateError) {
       console.error("Failed to update account details", updateError);
       setError(
-        "Could not update your account. Check that profile fields are enabled in your Clerk settings and try again.",
+        updateError instanceof Error
+          ? updateError.message
+          : "Could not update your account. Please try again.",
       );
     } finally {
       setIsSaving(false);

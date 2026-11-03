@@ -55,7 +55,7 @@ Cloudinary Showcase is a Next.js application for uploading and browsing videos, 
    npx prisma migrate deploy
    ```
 
-   Prisma Client is generated during dependency installation and again before a production build. If you change the schema, regenerate the client with:
+   Prisma Client source is checked into `app/generated/prisma` so deployment builds can resolve it immediately; the install and build scripts also regenerate it from the schema. After changing the schema, regenerate and commit the updated client:
 
    ```bash
    npx prisma generate

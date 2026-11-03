@@ -74,7 +74,7 @@ export default function AppLayout({
                   href="/account"
                   aria-label="View account"
                   title="Account"
-                  className="avatar rounded-full ring-offset-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                  className="avatar rounded-full ring-offset-base-200  focus-visible:outline-2 focus-visible:outline-primary"
                 >
                   <div className="w-10 h-10 rounded-full">
                     <img src={user.imageUrl} alt="" />

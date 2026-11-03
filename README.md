@@ -55,6 +55,12 @@ Cloudinary Showcase is a Next.js application for uploading and browsing videos, 
    npx prisma migrate deploy
    ```
 
+   Prisma Client is generated automatically before a production build. If you need to generate it manually after changing the schema, run:
+
+   ```bash
+   npx prisma generate
+   ```
+
 4. Start the development server:
 
    ```bash
